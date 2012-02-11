@@ -77,6 +77,8 @@
 
 @synthesize showStarted;
 
+@synthesize visible;
+
 - (void)setMode:(MBProgressHUDMode)newMode {
     // Dont change mode if it wasn't actually changed to prevent flickering
     if (mode && (mode == newMode)) {
@@ -457,7 +459,7 @@
 
 - (void)show:(BOOL)animated {
 	useAnimation = animated;
-	
+	self.visible = TRUE;
 	// If the grace time is set postpone the HUD display
 	if (self.graceTime > 0.0) {
 		self.graceTimer = [NSTimer scheduledTimerWithTimeInterval:self.graceTime 
@@ -492,6 +494,7 @@
 	
 	// ... otherwise hide the HUD immediately
     [self hideUsingAnimation:useAnimation];
+    self.visible = FALSE;
 }
 
 - (void)hide:(BOOL)animated afterDelay:(NSTimeInterval)delay {
